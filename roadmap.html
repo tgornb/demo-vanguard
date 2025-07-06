@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIH Vanguard - Product Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+        .gradient-bg {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(8, 5, 193, 0.3), rgba(255, 255, 255, 0));
+        }
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(8, 5, 193, 0.05), rgba(59, 130, 246, 0.05));
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .floating-orb:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 5%; animation-delay: 0s; }
+        .floating-orb:nth-child(2) { width: 100px; height: 100px; top: 70%; right: 10%; animation-delay: 3s; }
+        .floating-orb:nth-child(3) { width: 150px; height: 150px; bottom: 5%; left: 20%; animation-delay: 6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
+        }
+        
+        .hero-line {
+            width: 1px;
+            height: 150px;
+            background: linear-gradient(transparent, #0805C1, transparent);
+            animation: move-line 10s linear infinite;
+            position: absolute;
+        }
+        @keyframes move-line {
+            0% { transform: translateY(-150%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background-color: rgba(139, 148, 158, 0.2);
+            z-index: 5;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 0;
+            background: linear-gradient(to top, #0805C1, #3B82F6);
+            z-index: 6;
+            transition: height 0.3s ease-out;
+        }
+        
+        .timeline-item {
+            position: relative;
+            z-index: 10;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #161B22;
+            border: 4px solid rgba(139, 148, 158, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item.active .timeline-dot {
+            background-color: #3B82F6;
+            border-color: #0805C1;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+
+        .card {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(139, 148, 158, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .feature-tag {
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93C5FD;
+        }
+        .ai-feature-tag {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #6EE7B7;
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+
+    <!-- Animated Background Elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div class="floating-orb"></div>
+        <div class="floating-orb"></div>
+        <div class="floating-orb"></div>
+        <div class="hero-line" style="left: 10%;"></div>
+        <div class="hero-line" style="left: 90%; animation-delay: -5s;"></div>
+    </div>
+    
+    <!-- Gradient overlay -->
+    <div class="absolute inset-0 gradient-bg pointer-events-none"></div>
+
+    <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        
+        <!-- Header -->
+        <header class="text-center mb-16 sm:mb-24 fade-in-up">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+                UIH <span class="text-blue-400">Vanguard</span> Roadmap
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto">
+                แผนการพัฒนา 4 เฟส ภายใน 2 ปี เพื่อส่งมอบนวัตกรรมและบริการที่เป็นเลิศ
+            </p>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto mt-6 rounded-full"></div>
+        </header>
+
+        <!-- Timeline Container -->
+        <div class="relative">
+            <div class="timeline-line"></div>
+            <div class="timeline-progress" id="timeline-progress"></div>
+            
+            <div class="space-y-16">
+                
+                <!-- Phase 1 -->
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-dot"></div>
+                    <div class="card rounded-2xl p-6 sm:p-8 w-full max-w-3xl mx-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">🎯 Phase 1: Foundation & Core Features</h2>
+                            <span class="text-sm text-gray-400 mt-2 sm:mt-0">เดือนที่ 1-6</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">MVP - Minimum Viable Product เพื่อเริ่มให้บริการพื้นฐาน</p>
+                        <div class="space-y-4">
+                            <h3 class="font-semibold text-lg text-blue-300">Key Deliverables:</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Authentication Architecture</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Client & MSP Portals</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Executive & Technical Dashboards</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Incident Management</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">SLA Management</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Basic Reporting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-dot"></div>
+                    <div class="card rounded-2xl p-6 sm:p-8 w-full max-w-3xl mx-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">🚀 Phase 2: AI-Driven Intelligence</h2>
+                            <span class="text-sm text-gray-400 mt-2 sm:mt-0">เดือนที่ 7-12</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">เพิ่ม AI เพื่อการดูแลเชิงรุกและการทำงานอัตโนมัติ</p>
+                        <div class="space-y-4">
+                            <h3 class="font-semibold text-lg text-blue-300">Key Deliverables:</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="ai-feature-tag text-sm font-medium px-3 py-1 rounded-full">Anomaly Detection (AI)</span>
+                                <span class="ai-feature-tag text-sm font-medium px-3 py-1 rounded-full">Predictive Analytics (AI)</span>
+                                <span class="ai-feature-tag text-sm font-medium px-3 py-1 rounded-full">Capacity Planning (AI)</span>
+                                <span class="ai-feature-tag text-sm font-medium px-3 py-1 rounded-full">AIOps</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Customizable Dashboards</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Automation Workflows</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-dot"></div>
+                    <div class="card rounded-2xl p-6 sm:p-8 w-full max-w-3xl mx-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">📈 Phase 3: Advanced Operations & Security</h2>
+                            <span class="text-sm text-gray-400 mt-2 sm:mt-0">เดือนที่ 13-18</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">เสริมความแข็งแกร่งด้านการดำเนินงานและความปลอดภัย</p>
+                        <div class="space-y-4">
+                            <h3 class="font-semibold text-lg text-blue-300">Key Deliverables:</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Security Operations Center (SOC)</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Vulnerability Assessment</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Compliance Management (GDPR/PDPA)</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Change & Release Management</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Application Portfolio Management</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Business Intelligence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-dot"></div>
+                    <div class="card rounded-2xl p-6 sm:p-8 w-full max-w-3xl mx-auto">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white">🎖️ Phase 4: Enterprise Excellence</h2>
+                            <span class="text-sm text-gray-400 mt-2 sm:mt-0">เดือนที่ 19-24</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic">ยกระดับสู่มาตรฐานองค์กรและการปรับปรุงต่อเนื่อง</p>
+                        <div class="space-y-4">
+                            <h3 class="font-semibold text-lg text-blue-300">Key Deliverables:</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Advanced Reporting & API</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Disaster Recovery & Crisis Management</span>
+                                <span class="ai-feature-tag text-sm font-medium px-3 py-1 rounded-full">Operational Intelligence (AI)</span>
+                                <span class="ai-feature-tag text-sm font-medium px-3 py-1 rounded-full">Predictive Planning (AI)</span>
+                                <span class="ai-feature-tag text-sm font-medium px-3 py-1 rounded-full">AI Model Governance</span>
+                                <span class="feature-tag text-sm font-medium px-3 py-1 rounded-full">Knowledge Management Hub</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <section class="fade-in-up">
+                <div class="flex justify-center fade-in-up" style="transition-delay: 0.4s;">
+                    <a href="client-login.html" class="bg-primary hover:opacity-90 text-white font-bold py-3 px-8 rounded-lg text-lg transition-all transform hover:scale-105 glow-effect">
+                        ขอรับ Demo
+                    </a>
+                </div>
+            </section>
+        <!-- Footer -->
+        <footer class="text-center mt-16 sm:mt-24 pt-8 border-t border-gray-800 fade-in-up">
+            <p class="text-sm text-gray-400">&copy; 2025 UIH Vanguard. All Rights Reserved.</p>
+            <p class="mt-1 text-sm text-gray-500">www.uih.co.th</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineProgress = document.getElementById('timeline-progress');
+            
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const item = entry.target;
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                        timelineItems.forEach(i => i.classList.remove('active'));
+                        item.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            timelineItems.forEach(item => {
+                timelineObserver.observe(item);
+            });
+
+            function updateTimelineProgress() {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight;
+                
+                // Start progress after the header
+                const header = document.querySelector('header');
+                const timeline = document.querySelector('.timeline-line');
+                const startPoint = header.offsetHeight;
+                const endPoint = docHeight - windowHeight - document.querySelector('footer').offsetHeight;
+                
+                let progress = 0;
+                if (scrollY > startPoint) {
+                    progress = (scrollY - startPoint) / (endPoint - startPoint);
+                }
+                progress = Math.min(1, Math.max(0, progress));
+
+                timelineProgress.style.height = `${progress * timeline.offsetHeight}px`;
+            }
+
+            window.addEventListener('scroll', updateTimelineProgress);
+            updateTimelineProgress(); // Initial call
+        });
+    </script>
+</body>
+</html>

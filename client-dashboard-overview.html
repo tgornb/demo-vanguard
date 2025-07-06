@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIH Vanguard - Overview Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+        .sidebar {
+            background-color: #161B22;
+        }
+        .main-content {
+            background-color: #0D1117;
+        }
+        .card {
+            background-color: #161B22;
+            border: 1px solid #30363D;
+        }
+        .active-nav {
+            background-color: #0805C1;
+            color: white;
+        }
+        .status-ok { color: #22C55E; }
+        .status-warn { color: #FBBF24; }
+        .status-error { color: #EF4444; }
+        .loader {
+            border: 4px solid #30363D;
+            border-top: 4px solid #0805C1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        .loader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }   
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .chat-bubble {
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            max-width: 80%;
+        }
+        .user-bubble {
+            background-color: #0805C1;
+            color: white;
+            align-self: flex-end;
+        }
+        .ai-bubble {
+            background-color: #374151;
+            color: #F3F4F6;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body class="w-full overflow-x-hidden">
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 sidebar flex-shrink-0 p-6 hidden md:flex flex-col justify-between border-r border-gray-800">
+            <div>
+                <div class="text-2xl font-bold text-white mb-10">UIH <span class="text-blue-400">Vanguard</span></div>
+                <nav class="flex flex-col space-y-2">
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg active-nav">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+                        ภาพรวม (Overview)
+                    </a>
+                     <a href="client-dashboard-incident.html" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.21 3.03-1.742 3.03H4.42c-1.532 0-2.492-1.696-1.742-3.03l5.58-9.92zM10 13a1 1 0 110-2 1 1 0 010 2zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                        Incidents & Events
+                    </a>
+                    <div>
+                        <button id="applicationMenuToggle" class="w-full flex items-center justify-between py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                            <span class="flex items-center">
+                                <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" /></svg>
+                                Applications
+                            </span>
+                            <svg id="applicationArrow" class="h-5 w-5 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </button>
+                        <div id="applicationSubMenu" class="pl-6 pt-2 space-y-2 hidden">
+                            <a href="client-dashboard-app.html" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">Overview</a>
+                            <a href="exat-client-dashboard.html" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">ETAX</a>
+                        </div>
+                    </div>
+                    <a href="client-dashboard-cloud.html" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z" /></svg>
+                        Cloud
+                    </a>
+                    <a href="client-dashboard-network.html" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.84C2 5.385 2 6.136 2 7v6c0 .864 0 1.615.166 2.16C2.49 15.82 3.18 16.51 3.84 16.833 4.385 17 5.136 17 6 17h8c.864 0 1.615 0 2.16-.167.66-.322 1.35-.913 1.683-1.57C18 14.615 18 13.864 18 13V7c0-.864 0-1.615-.167-2.16C17.51 4.18 16.82 3.49 16.16 3.167 15.615 3 14.864 3 14 3H6c-.864 0-1.615 0-2.16.167-.66.322-1.35-.913-1.683 1.57zM10 8a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                        Network
+                    </a>
+                    <div>
+                        <button id="securityMenuToggle" class="w-full flex items-center justify-between py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                            <span class="flex items-center">
+                                <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
+                                Security
+                            </span>
+                            <svg id="securityArrow" class="h-5 w-5 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </button>
+                        <div id="securitySubMenu" class="pl-6 pt-2 space-y-2 hidden">
+                            <a href="client-dashboard-security.html" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">Overview</a>
+                            <a href="https://fortigate.fortidemo.com" target="_blank" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">Fortinet SASE</a>
+                        </div>
+                    </div>
+                    <a href="https://demo.elastic.co/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'filebeat-*',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))" target="_blank" rel="noopener noreferrer" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" /></svg>
+                        Log Analytics
+                    </a>
+                </nav>
+            </div>
+            <div class="text-center text-xs text-gray-500">
+                Powered by UIH Vanguard
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 main-content p-6 md:p-10 overflow-y-auto">
+            <h1 class="text-3xl font-bold text-white mb-8">ภาพรวมระบบ (System Overview)</h1>
+            
+            <!-- AI Insights Section -->
+            <section id="ai-insights" class="mb-8">
+                <div class="card rounded-lg p-6 bg-gradient-to-r from-blue-900/50 to-gray-900/30">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-semibold text-white mb-2">✨ AI-Powered Insights & Recommendations</h2>
+                            <p class="text-gray-400 mb-4 md:mb-0">สรุปภาพรวมและคำแนะนำรายวันโดย Vanguard AI</p>
+                        </div>
+                        <button id="generateReportBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors w-full md:w-auto">
+                            Generate Daily Summary
+                        </button>
+                    </div>
+                    <div id="loadingIndicator" class="hidden mt-6 flex justify-center items-center">
+                        <div class="loader"></div>
+                        <p class="ml-4">AI กำลังวิเคราะห์ข้อมูลล่าสุด...</p>
+                    </div>
+                    <div id="reportOutput" class="hidden mt-6 text-left p-6 bg-[#0D1117] border border-gray-700 rounded-lg whitespace-pre-wrap"></div>
+                </div>
+            </section>
+
+            <!-- Service Health Matrix -->
+            <section id="service-health">
+                <h2 class="text-2xl font-semibold text-white mb-4">Service Health Matrix</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Applications</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center"><p>ETAX Application</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>ETAX Customer Portal</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>HSM Module</p><span class="status-ok font-bold">Operational</span></div>
+                        </div>
+                    </div>
+                    <div class="card rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Cloud</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center"><p>IaaS (BCH4)</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>IaaS (TCCT)</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>Kubernetes Service</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>AWS S3 / SES</p><span class="status-ok font-bold">Operational</span></div>
+                        </div>
+                    </div>
+                    <div class="card rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Network</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center"><p>MPLS DC/DR</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>MPLS to Revenue</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>Corporate Internet</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>Branch Links</p><span class="status-warn font-bold">Degraded</span></div>
+                        </div>
+                    </div>
+                    <div class="card rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Security</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center"><p>Cloudflare WAF</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>Fortigate SASE</p><span class="status-ok font-bold">Operational</span></div>
+                            <div class="flex justify-between items-center"><p>LogU (ELK)</p><span class="status-ok font-bold">Operational</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Key Metrics -->
+            <section id="key-metrics" class="mt-8">
+                 <h2 class="text-2xl font-semibold text-white mb-4">Key Metrics</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Open Incidents</p><p class="text-3xl font-bold text-yellow-400 mt-1">5</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Avg. Network Latency</p><p class="text-3xl font-bold text-white mt-1">18 ms</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Cloud CPU (Avg)</p><p class="text-3xl font-bold text-white mt-1">55%</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">WAF Threats Blocked (24h)</p><p class="text-3xl font-bold text-red-500 mt-1">1,542</p></div>
+                 </div>
+            </section>
+            <!-- Ask Vanguard AI Section -->
+            <section id="ai-chat" class="mt-8">
+                <h2 class="text-2xl font-semibold text-white mb-4">✨ Ask Vanguard AI</h2>
+                <div class="card rounded-lg p-6">
+                    <div id="chatWindow" class="h-64 overflow-y-auto mb-4 p-4 bg-[#0D1117] rounded-lg border border-gray-700 flex flex-col space-y-4">
+                        <div class="ai-bubble chat-bubble">สวัสดีครับ! ผมคือ Vanguard AI ผู้ช่วยอัจฉริยะของคุณ ถามคำถามเกี่ยวกับสถานะระบบของคุณได้เลยครับ</div>
+                    </div>
+                    <div class="flex gap-4">
+                        <input type="text" id="chatInput" placeholder="ตัวอย่าง: ช่วยสรุป incident ที่สำคัญที่สุดตอนนี้หน่อย" class="flex-grow bg-[#0D1117] border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <button id="sendChatBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Send</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Sidebar Accordion Logic ---
+            const menuToggles = [
+                {
+                    button: document.getElementById('applicationMenuToggle'),
+                    subMenu: document.getElementById('applicationSubMenu'),
+                    arrow: document.getElementById('applicationArrow')
+                },
+                {
+                    button: document.getElementById('securityMenuToggle'),
+                    subMenu: document.getElementById('securitySubMenu'),
+                    arrow: document.getElementById('securityArrow')
+                }
+            ];
+
+            menuToggles.forEach(menu => {
+                if (menu.button) {
+                    menu.button.addEventListener('click', () => {
+                        const isCurrentlyOpen = !menu.subMenu.classList.contains('hidden');
+
+                        // Close all menus first
+                        menuToggles.forEach(otherMenu => {
+                            if (otherMenu !== menu) {
+                                otherMenu.subMenu.classList.add('hidden');
+                                if (otherMenu.arrow) otherMenu.arrow.classList.remove('rotate-180');
+                            }
+                        });
+                        
+                        // Then, toggle the clicked menu
+                        if (isCurrentlyOpen) {
+                             menu.subMenu.classList.add('hidden');
+                             if (menu.arrow) menu.arrow.classList.remove('rotate-180');
+                        } else {
+                             menu.subMenu.classList.remove('hidden');
+                             if (menu.arrow) menu.arrow.classList.add('rotate-180');
+                        }
+                    });
+                }
+            });
+
+            // AI Insights Report Generation
+            const generateReportBtn = document.getElementById('generateReportBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const reportOutput = document.getElementById('reportOutput');    
+        });
+    </script>
+</body>
+</html>

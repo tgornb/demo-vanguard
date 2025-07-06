@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIH Vanguard - Security Service Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+        .sidebar {
+            background-color: #161B22;
+        }
+        .main-content {
+            background-color: #0D1117;
+        }
+        .card {
+            background-color: #161B22;
+            border: 1px solid #30363D;
+        }
+        .active-nav {
+            background-color: #0805C1;
+            color: white;
+        }
+    </style>
+</head>
+<body class="w-full overflow-x-hidden">
+
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 sidebar flex-shrink-0 p-6 hidden md:flex flex-col justify-between border-r border-gray-800">
+            <div>
+                <div class="text-2xl font-bold text-white mb-10">UIH <span class="text-blue-400">Vanguard</span></div>
+                <nav class="flex flex-col space-y-2">
+                    <a href="client-dashboard-overview.html" class="flex items-center py-3 px-4 rounded-lg active-nav">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+                        ภาพรวม (Overview)
+                    </a>
+                     <a href="client-dashboard-incident.html" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.21 3.03-1.742 3.03H4.42c-1.532 0-2.492-1.696-1.742-3.03l5.58-9.92zM10 13a1 1 0 110-2 1 1 0 010 2zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                        Incidents & Events
+                    </a>
+                    <div>
+                        <button id="applicationMenuToggle" class="w-full flex items-center justify-between py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                            <span class="flex items-center">
+                                <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" /></svg>
+                                Applications
+                            </span>
+                            <svg id="applicationArrow" class="h-5 w-5 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </button>
+                        <div id="applicationSubMenu" class="pl-6 pt-2 space-y-2 hidden">
+                            <a href="client-dashboard-app.html" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">Overview</a>
+                            <a href="exat-client-dashboard.html" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">ETAX</a>
+                        </div>
+                    </div>
+                    <a href="client-dashboard-cloud.html" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M5.5 16a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 16h-8z" /></svg>
+                        Cloud
+                    </a>
+                    <a href="client-dashboard-network.html" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.84C2 5.385 2 6.136 2 7v6c0 .864 0 1.615.166 2.16C2.49 15.82 3.18 16.51 3.84 16.833 4.385 17 5.136 17 6 17h8c.864 0 1.615 0 2.16-.167.66-.322 1.35-.913 1.683-1.57C18 14.615 18 13.864 18 13V7c0-.864 0-1.615-.167-2.16C17.51 4.18 16.82 3.49 16.16 3.167 15.615 3 14.864 3 14 3H6c-.864 0-1.615 0-2.16.167-.66.322-1.35-.913-1.683 1.57zM10 8a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                        Network
+                    </a>
+                    <div>
+                        <button id="securityMenuToggle" class="w-full flex items-center justify-between py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                            <span class="flex items-center">
+                                <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" /></svg>
+                                Security
+                            </span>
+                            <svg id="securityArrow" class="h-5 w-5 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </button>
+                        <div id="securitySubMenu" class="pl-6 pt-2 space-y-2 hidden">
+                            <a href="client-dashboard-security.html" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">Overview</a>
+                            <a href="https://fortigate.fortidemo.com" target="_blank" class="flex items-center py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-sm">Fortinet SASE</a>
+                        </div>
+                    </div>
+                    <a href="https://demo.elastic.co/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(columns:!(),dataSource:(dataViewId:'filebeat-*',type:dataView),filters:!(),interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))" target="_blank" rel="noopener noreferrer" class="flex items-center py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors">
+                        <svg class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" /></svg>
+                        Log Analytics
+                    </a>
+                </nav>
+            </div>
+            <div class="text-center text-xs text-gray-500">
+                Powered by UIH Vanguard
+            </div>
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="flex-1 main-content p-6 md:p-10 overflow-y-auto">
+            <h1 class="text-3xl font-bold text-white mb-2">Security Service Monitoring</h1>
+            <p class="text-gray-400 mb-8">ภาพรวมสถานะบริการด้านความปลอดภัยทั้งหมดของ EXAT</p>
+
+            <!-- Cloudflare Section -->
+            <section id="cloudflare">
+                <h2 class="text-2xl font-semibold text-white mb-4 border-l-4 border-orange-500 pl-4">Cloudflare (CDN & WAF)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Total Requests (24h)</p><p class="text-3xl font-bold text-white mt-1">2.8M</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Threats Blocked (24h)</p><p class="text-3xl font-bold text-red-500 mt-1">1,542</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Data Served by CDN</p><p class="text-3xl font-bold text-white mt-1">1.2 TB</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Cache Hit Ratio</p><p class="text-3xl font-bold text-green-400 mt-1">92%</p></div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="card rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-white mb-4">WAF Events (Last 24h)</h3>
+                        <canvas id="wafEventsChart"></canvas>
+                    </div>
+                    <div class="card rounded-lg p-6">
+                        <h3 class="text-xl font-semibold text-white mb-4">Top Threats by Country</h3>
+                        <canvas id="threatsByCountryChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fortigate SASE Section -->
+            <section id="sase">
+                <h2 class="text-2xl font-semibold text-white mb-4 border-l-4 border-red-600 pl-4">Fortigate SASE</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Active SASE Users</p><p class="text-3xl font-bold text-white mt-1">4,500</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Malware Blocked (24h)</p><p class="text-3xl font-bold text-red-500 mt-1">89</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">Risky Apps Detected</p><p class="text-3xl font-bold text-yellow-500 mt-1">12</p></div>
+                    <div class="card rounded-lg p-6"><p class="text-gray-400">ZTNA Connections</p><p class="text-3xl font-bold text-white mt-1">1,230</p></div>
+                </div>
+                 <div class="card rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-4">Recent SASE Security Events</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="border-b border-gray-700">
+                                <tr><th class="p-3">Timestamp</th><th class="p-3">User</th><th class="p-3">Event Type</th><th class="p-3">Action</th><th class="p-3">Details</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-800"><td class="p-3">22:45:10</td><td class="p-3">user01@exat.co.th</td><td class="p-3 text-red-400">Malware</td><td class="p-3">Blocked</td><td class="p-3">File: invoice.exe</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">22:42:30</td><td class="p-3">user02@exat.co.th</td><td class="p-3 text-yellow-400">Risky App</td><td class="p-3">Logged</td><td class="p-3">App: TikTok</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">22:40:05</td><td class="p-3">admin01@exat.co.th</td><td class="p-3 text-blue-400">ZTNA</td><td class="p-3">Connected</td><td class="p-3">Resource: Internal HR Portal</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-3">22:35:18</td><td class="p-3">user03@exat.co.th</td><td class="p-3 text-yellow-400">Web Filter</td><td class="p-3">Blocked</td><td class="p-3">Category: Gambling</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Chart.defaults.color = '#C9D1D9';
+            Chart.defaults.borderColor = '#30363D';
+            Chart.defaults.font.family = "'Kanit', sans-serif";
+
+            // WAF Events Chart
+            const wafCtx = document.getElementById('wafEventsChart').getContext('2d');
+            new Chart(wafCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 12}, (_, i) => new Date().setHours(new Date().getHours() - (11-i), 0, 0, 0)),
+                    datasets: [
+                        { label: 'Allowed', data: [200, 210, 205, 220, 230, 225, 240, 250, 245, 235, 230, 220].map(v => v * 1000), borderColor: '#22C55E', tension: 0.3, pointRadius: 0 },
+                        { label: 'Blocked', data: [100, 110, 105, 120, 130, 125, 140, 150, 145, 135, 130, 120], borderColor: '#EF4444', tension: 0.3, pointRadius: 0 },
+                        { label: 'Challenged', data: [50, 55, 52, 60, 65, 62, 70, 75, 72, 68, 65, 63], borderColor: '#FBBF24', tension: 0.3, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: true,
+                    scales: { x: { type: 'time', time: { unit: 'hour' } }, y: { beginAtZero: true } },
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // Threats by Country Chart
+            const threatsCtx = document.getElementById('threatsByCountryChart').getContext('2d');
+            new Chart(threatsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['China', 'Russia', 'USA', 'Vietnam', 'Brazil'],
+                    datasets: [{ label: 'Threats', data: [450, 320, 210, 150, 80], backgroundColor: '#EF4444' }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: true, indexAxis: 'y',
+                    plugins: { legend: { display: false } }
+                }
+            });
+        });
+        // --- Sidebar Accordion Logic ---
+            const menuToggles = [
+                {
+                    button: document.getElementById('applicationMenuToggle'),
+                    subMenu: document.getElementById('applicationSubMenu'),
+                    arrow: document.getElementById('applicationArrow')
+                },
+                {
+                    button: document.getElementById('securityMenuToggle'),
+                    subMenu: document.getElementById('securitySubMenu'),
+                    arrow: document.getElementById('securityArrow')
+                }
+            ];
+
+            menuToggles.forEach(menu => {
+                if (menu.button) {
+                    menu.button.addEventListener('click', () => {
+                        const isCurrentlyOpen = !menu.subMenu.classList.contains('hidden');
+
+                        // Close all menus first
+                        menuToggles.forEach(otherMenu => {
+                            if (otherMenu !== menu) {
+                                otherMenu.subMenu.classList.add('hidden');
+                                if (otherMenu.arrow) otherMenu.arrow.classList.remove('rotate-180');
+                            }
+                        });
+                        
+                        // Then, toggle the clicked menu
+                        if (isCurrentlyOpen) {
+                             menu.subMenu.classList.add('hidden');
+                             if (menu.arrow) menu.arrow.classList.remove('rotate-180');
+                        } else {
+                             menu.subMenu.classList.remove('hidden');
+                             if (menu.arrow) menu.arrow.classList.add('rotate-180');
+                        }
+                    });
+                }
+            });
+    </script>
+</body>
+</html>

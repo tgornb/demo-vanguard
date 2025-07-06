@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIH Vanguard - Client Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+        .gradient-bg {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(8, 5, 193, 0.3), rgba(255, 255, 255, 0));
+        }
+        .glow-effect {
+            box-shadow: 0 0 15px rgba(8, 5, 193, 0.4), 0 0 30px rgba(8, 5, 193, 0.3), 0 0 45px rgba(8, 5, 193, 0.2);
+        }
+        .login-card {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 148, 158, 0.2);
+            transition: border-color 0.3s ease;
+        }
+        .login-card:focus-within {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(8, 5, 193, 0.05), rgba(59, 130, 246, 0.05));
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+            transition: transform 0.2s ease-out;
+        }
+        .floating-orb:nth-child(1) { width: 120px; height: 120px; top: 15%; left: 15%; animation-delay: 0s; }
+        .floating-orb:nth-child(2) { width: 80px; height: 80px; top: 65%; right: 20%; animation-delay: 2s; }
+        .floating-orb:nth-child(3) { width: 60px; height: 60px; bottom: 25%; left: 25%; animation-delay: 4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        .hero-line {
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(transparent, #0805C1, transparent);
+            animation: move-line 8s linear infinite;
+            position: absolute;
+        }
+        @keyframes move-line {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3), 0 0 15px rgba(8, 5, 193, 0.2);
+        }
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .sso-button {
+            transition: all 0.3s ease;
+        }
+        .sso-button:hover {
+            transform: translateY(-3px);
+            border-color: rgb(59 130 246 / 0.7);
+        }
+        label[for="remember-me"] {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div class="floating-orb"></div>
+        <div class="floating-orb"></div>
+        <div class="floating-orb"></div>
+        <div class="hero-line" style="left: 15%; animation-delay: -1s;"></div>
+        <div class="hero-line" style="left: 85%; animation-delay: -3s;"></div>
+        <div class="hero-line" style="left: 50%; animation-delay: -5s;"></div>
+    </div>
+
+    <div class="absolute inset-0 gradient-bg pointer-events-none"></div>
+
+    <div class="relative z-20 w-full max-w-md mx-4">
+        
+        <div class="text-center mb-8 fade-in">
+            <div class="text-4xl font-bold text-white mb-2">
+                UIH <span class="text-blue-400">Vanguard</span>
+            </div>
+            <p class="text-gray-400 text-lg">Client Portal</p>
+            <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="login-card rounded-2xl p-8 fade-in" style="animation-delay: 0.2s;">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-white mb-2">เข้าสู่ระบบ</h2>
+                <p class="text-gray-400">กรุณาเข้าสู่ระบบเพื่อเข้าถึง Dashboard</p>
+            </div>
+
+            <form class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">อีเมล</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+                        </div>
+                        <input type="email" id="email" name="email" required class="w-full pl-10 pr-3 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 input-glow transition-all duration-300" placeholder="example@company.com"/>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-300 mb-2">รหัสผ่าน</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg>
+                        </div>
+                        <input type="password" id="password" name="password" required class="w-full pl-10 pr-12 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 input-glow transition-all duration-300" placeholder="••••••••"/>
+                        <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white transition-colors" onclick="togglePassword(this)" aria-label="Toggle password visibility">
+                            <svg class="h-5 w-5" id="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" /><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" /></svg>
+                            <svg class="h-5 w-5 hidden" id="eye-closed" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L12 12m0 0l3.121 3.121M12 12l-3.121-3.121" /></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 bg-gray-800 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"/>
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-300">จดจำการเข้าสู่ระบบ</label>
+                    </div>
+                    <a href="#" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">ลืมรหัสผ่าน?</a>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 glow-effect focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900">เข้าสู่ระบบ</button>
+
+                <div class="mt-6">
+                    <div class="relative"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-600"></div></div><div class="relative flex justify-center text-sm"><span class="px-2 bg-[#161B22] text-gray-400">หรือเข้าสู่ระบบด้วย</span></div></div>
+                    <div class="mt-6 space-y-3">
+                        <button type="button" class="sso-button w-full flex items-center justify-center px-4 py-3 border border-gray-600 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 text-white">
+                            <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="currentColor"><path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4z"/><path d="M24 11.4H12.6V0H24v11.4z" fill="#00BCF2"/></svg>
+                            <span class="text-sm font-medium">Microsoft Azure AD</span>
+                        </button>
+                        <button type="button" class="sso-button w-full flex items-center justify-center px-4 py-3 border border-gray-600 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 text-white">
+                            <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                            <span class="text-sm font-medium">Google Workspace</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="mt-8 pt-6 border-t border-gray-700">
+                <div class="text-center">
+                    <p class="text-sm text-gray-400 mb-3">ต้องการความช่วยเหลือ?</p>
+                    <div class="flex justify-center space-x-4 text-sm">
+                        <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors">ติดต่อ IT Support</a>
+                        <span class="text-gray-600">|</span>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors">คู่มือการใช้งาน</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8 text-sm text-gray-400 fade-in" style="animation-delay: 0.4s;">
+            <p>&copy; 2025 UIH Vanguard. All Rights Reserved.</p>
+            <p class="mt-1">www.uih.co.th | โทร: 02-XXX-XXXX</p>
+        </div>
+    </div>
+
+    <script>
+        // --- Cache DOM elements ---
+        const passwordInput = document.getElementById('password');
+        const eyeOpenIcon = document.getElementById('eye-open');
+        const eyeClosedIcon = document.getElementById('eye-closed');
+        const loginForm = document.querySelector('form');
+        const submitButton = loginForm.querySelector('button[type="submit"]');
+        const orbs = document.querySelectorAll('.floating-orb');
+
+        // --- Password Visibility Toggle ---
+        function togglePassword(button) {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            eyeOpenIcon.classList.toggle('hidden', isPassword);
+            eyeClosedIcon.classList.toggle('hidden', !isPassword);
+        }
+
+        // --- Form Submission Handler ---
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const originalText = submitButton.textContent;
+            submitButton.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                กำลังเข้าสู่ระบบ...
+            `;
+            submitButton.disabled = true;
+            
+            setTimeout(() => {
+                loginButton.style.background = 'linear-gradient(135deg, #23d5ab 0%, #23a6d5 100%)';
+                loginButton.textContent = 'สำเร็จ! กำลังเข้าสู่ระบบ...';
+                
+                setTimeout(() => {
+                    window.location.href = './dashboard.html';
+                }, 1500);
+
+            }, 2000);
+            setTimeout(() => {
+                submitButton.innerHTML = window.location.href = './client-dashboard-overview.html';
+                submitButton.disabled = false;
+            }, 3000);
+        });
+
+        // --- Smooth Parallax Effect for Orbs ---
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        const windowX = window.innerWidth / 2;
+        const windowY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', function(e) {
+            mouseX = (e.clientX - windowX);
+            mouseY = (e.clientY - windowY);
+        });
+
+        function animateParallax() {
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 0.02;
+                const x = -(targetX * speed);
+                const y = -(targetY * speed);
+                // We use CSS variables to avoid overriding the original transform in the CSS animation
+                orb.style.setProperty('--parallax-x', `${x}px`);
+                orb.style.setProperty('--parallax-y', `${y}px`);
+                orb.style.transform = `translate(var(--parallax-x, 0), var(--parallax-y, 0))`;
+            });
+
+            requestAnimationFrame(animateParallax);
+        }
+        
+        requestAnimationFrame(animateParallax);
+
+    </script>
+</body>
+</html>
