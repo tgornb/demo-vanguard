@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIH Vanguard - ปลดล็อกความง่ายอย่างอัจฉริยะ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+        .gradient-bg {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(8, 5, 193, 0.3), rgba(255, 255, 255, 0));
+        }
+        .glow-effect {
+            box-shadow: 0 0 15px rgba(8, 5, 193, 0.4), 0 0 30px rgba(8, 5, 193, 0.3), 0 0 45px rgba(8, 5, 193, 0.2);
+        }
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-line {
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(transparent, #0805C1, transparent);
+            animation: move-line 10s linear infinite;
+            position: absolute;
+            left: 50%;
+        }
+        @keyframes move-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body class="w-full overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/50 backdrop-blur-lg border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-white">UIH <span class="text-blue-400">Vanguard</span></div>
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#challenges" class="hover:text-blue-400 transition-colors">ความท้าทาย</a>
+                <a href="#solutions" class="hover:text-blue-400 transition-colors">โซลูชัน</a>
+                <a href="#features" class="hover:text-blue-400 transition-colors">คุณสมบัติ</a>
+                <a href="#why-us" class="hover:text-blue-400 transition-colors">ทำไมต้องเรา</a>
+                <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">ติดต่อเรา</a>
+            </nav>
+            <button class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="pt-24">
+        <section class="relative text-center py-20 md:py-32 px-6 overflow-hidden gradient-bg">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                <!-- Animated background lines -->
+                <div class="hero-line" style="left: 10%; animation-delay: -2s;"></div>
+                <div class="hero-line" style="left: 20%; animation-delay: -4s;"></div>
+                <div class="hero-line" style="left: 80%; animation-delay: -6s;"></div>
+                <div class="hero-line" style="left: 90%; animation-delay: -8s;"></div>
+            </div>
+            <div class="container mx-auto relative">
+                <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-4 scroll-animation">
+                    ปลดล็อกความง่ายอย่างอัจฉริยะ
+                </h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 scroll-animation" style="transition-delay: 0.2s;">
+                    ขับเคลื่อน Ecosystem ที่ผสานเป็นหนึ่งเพื่อคุณด้วย UIH Vanguard แพลตฟอร์ม Managed Service อัจฉริยะ ที่เปลี่ยนความซับซ้อนของ IT ให้กลายเป็นความสำเร็จของธุรกิจ
+                </p>
+                <div class="scroll-animation" style="transition-delay: 0.4s;">
+                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 glow-effect">
+                        ขอรับการสาธิต (Demo)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges Section -->
+        <section id="challenges" class="py-20 px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 scroll-animation">คุณกำลังเผชิญกับความท้าทายเหล่านี้ใช่หรือไม่?</h2>
+                    <p class="text-lg text-gray-400 scroll-animation" style="transition-delay: 0.2s;">ปัญหาด้าน IT ที่คอยฉุดรั้งการเติบโตของธุรกิจคุณ</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Challenge Card 1 -->
+                    <div class="bg-[#161B22] p-8 rounded-xl border border-gray-800 hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-2 scroll-animation">
+                        <div class="text-blue-400 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Complexity & No Visibility</h3>
+                        <p>ระบบ IT ซับซ้อนและกระจัดกระจายจนมองไม่เห็นภาพรวมที่แท้จริง</p>
+                    </div>
+                    <!-- Challenge Card 2 -->
+                    <div class="bg-[#161B22] p-8 rounded-xl border border-gray-800 hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-2 scroll-animation" style="transition-delay: 0.1s;">
+                        <div class="text-blue-400 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Reactive & Overloaded</h3>
+                        <p>ใช้เวลาและบุคลากรส่วนใหญ่ไปกับการเฝ้าระวังและแก้ปัญหาเฉพาะหน้า</p>
+                    </div>
+                    <!-- Challenge Card 3 -->
+                    <div class="bg-[#161B22] p-8 rounded-xl border border-gray-800 hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-2 scroll-animation" style="transition-delay: 0.2s;">
+                        <div class="text-blue-400 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Business Impact</h3>
+                        <p>กว่าจะรู้ว่าระบบมีปัญหา ก็ส่งผลกระทบต่อธุรกิจและความเชื่อมั่นของลูกค้าไปแล้ว</p>
+                    </div>
+                    <!-- Challenge Card 4 -->
+                    <div class="bg-[#161B22] p-8 rounded-xl border border-gray-800 hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-2 scroll-animation" style="transition-delay: 0.3s;">
+                        <div class="text-blue-400 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Expertise Gap</h3>
+                        <p>ขาดแคลนผู้เชี่ยวชาญในการดูแลเทคโนโลยีที่หลากหลายและทันสมัย</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions Section -->
+        <section id="solutions" class="py-20 px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 scroll-animation">เราเปลี่ยนความท้าทายให้เป็นโอกาส</h2>
+                    <p class="text-lg text-gray-400 scroll-animation" style="transition-delay: 0.2s;">ด้วย 3 คุณค่าหลักที่สัมผัสได้จริงจาก UIH Vanguard</p>
+                </div>
+                
+                <!-- Solution 1 -->
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                    <div class="scroll-animation">
+                        <span class="text-blue-400 font-bold">Unlock Intelligent Simplicity</span>
+                        <h3 class="text-3xl font-bold text-white mt-2 mb-4">เห็นภาพรวม IT ทั้งองค์กร จบในหน้าจอเดียว</h3>
+                        <p class="mb-6">แสดงสถานะของทุกระบบ ทุก Cloud ทุกเครือข่าย แบบ Real-time ผ่าน Unified Dashboard ช่วยให้คุณติดตามคุณภาพบริการ (SLA) และประสิทธิภาพของแอปพลิเคชันได้อย่างโปร่งใส</p>
+                        <a href="#" class="text-blue-400 font-semibold hover:text-blue-300">เรียนรู้เพิ่มเติม &rarr;</a>
+                    </div>
+                    <div class="bg-[#161B22] p-8 rounded-xl border border-gray-800 scroll-animation" style="transition-delay: 0.2s;">
+                        <img src="https://placehold.co/600x400/0D1117/C9D1D9?text=Unified+Dashboard" alt="Unified Dashboard" class="rounded-lg w-full">
+                    </div>
+                </div>
+
+                <!-- Solution 2 -->
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                    <div class="bg-[#161B22] p-8 rounded-xl border border-gray-800 md:order-2 scroll-animation">
+                        <img src="https://placehold.co/600x400/0D1117/C9D1D9?text=AI-Powered+Proactive+Care" alt="AI-Powered Proactive Care" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:order-1 scroll-animation" style="transition-delay: 0.2s;">
+                        <span class="text-blue-400 font-bold">Powering Your Integrated Ecosystem</span>
+                        <h3 class="text-3xl font-bold text-white mt-2 mb-4">ดูแลเชิงรุกด้วย AI ที่แก้ปัญหาก่อนจะเกิด</h3>
+                        <p class="mb-6">AI เรียนรู้พฤติกรรมปกติของระบบ และแจ้งเตือนเมื่อพบแนวโน้มที่ผิดปกติ (Anomaly Detection) พร้อมวิเคราะห์และชี้สาเหตุของปัญหาได้รวดเร็ว ลดเวลาในการแก้ไข (MTTR) อย่างมีประสิทธิภาพ</p>
+                        <a href="#" class="text-blue-400 font-semibold hover:text-blue-300">เรียนรู้เพิ่มเติม &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Solution 3 -->
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="scroll-animation">
+                        <span class="text-blue-400 font-bold">Your Trusted Partner</span>
+                        <h3 class="text-3xl font-bold text-white mt-2 mb-4">ทีมผู้เชี่ยวชาญที่พร้อมดูแลคุณ 24/7</h3>
+                        <p class="mb-6">เบื้องหลังความเรียบง่ายบนหน้าจอ คือทีมวิศวกรผู้เชี่ยวชาญที่พร้อมให้คำปรึกษาและแก้ไขปัญหาตลอดเวลา พร้อมผู้จัดการบริการที่เข้าใจธุรกิจของคุณเป็นผู้ประสานงานหลัก</p>
+                        <a href="#" class="text-blue-400 font-semibold hover:text-blue-300">เรียนรู้เพิ่มเติม &rarr;</a>
+                    </div>
+                    <div class="bg-[#161B22] p-8 rounded-xl border border-gray-800 scroll-animation" style="transition-delay: 0.2s;">
+                        <img src="https://placehold.co/600x400/0D1117/C9D1D9?text=24/7+Expert+Support" alt="24/7 Expert Support" class="rounded-lg w-full">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-6 bg-[#161B22]">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 scroll-animation">คุณสมบัติหลักที่ตอบโจทย์ทุกมิติ</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-6 scroll-animation">
+                        <h4 class="text-xl font-bold text-blue-400 mb-2">AI-Driven Anomaly Detection</h4>
+                        <p>AI เรียนรู้และแจ้งเตือนเมื่อพบแนวโน้มที่ผิดปกติ</p>
+                    </div>
+                    <div class="p-6 scroll-animation">
+                        <h4 class="text-xl font-bold text-blue-400 mb-2">Automated Workflow</h4>
+                        <p>สร้างกระบวนการอัตโนมัติ เช่น การ Deploy แอปพลิเคชันข้าม Cloud</p>
+                    </div>
+                    <div class="p-6 scroll-animation">
+                        <h4 class="text-xl font-bold text-blue-400 mb-2">Root Cause Analysis</h4>
+                        <p>วิเคราะห์และชี้สาเหตุของปัญหาได้รวดเร็ว ลดเวลาในการแก้ไข (MTTR)</p>
+                    </div>
+                     <div class="p-6 scroll-animation">
+                        <h4 class="text-xl font-bold text-blue-400 mb-2">SLA & Performance Tracking</h4>
+                        <p>ติดตามคุณภาพบริการและประสิทธิภาพของแอปพลิเคชันได้โปร่งใส</p>
+                    </div>
+                    <div class="p-6 scroll-animation">
+                        <h4 class="text-xl font-bold text-blue-400 mb-2">Transparent Incident Management</h4>
+                        <p>ติดตามสถานะการแก้ไขปัญหาทุกขั้นตอนได้อย่างโปร่งใสผ่าน Portal</p>
+                    </div>
+                    <div class="p-6 scroll-animation">
+                        <h4 class="text-xl font-bold text-blue-400 mb-2">Dedicated Service Manager</h4>
+                        <p>มีผู้จัดการบริการที่เข้าใจธุรกิจของคุณเป็นผู้ประสานงานหลัก</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Us Section -->
+        <section id="why-us" class="py-20 px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 scroll-animation">ทำไมต้องเป็น UIH Vanguard?</h2>
+                    <p class="text-lg text-gray-400 scroll-animation" style="transition-delay: 0.2s;">เราเป็นมากกว่าผู้ให้บริการ แต่เราคือพาร์ทเนอร์เพื่อความสำเร็จของคุณ</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-[#161B22] p-10 rounded-xl border border-gray-800 grid md:grid-cols-3 gap-8 text-center scroll-animation">
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-2">ส่งมอบความอุ่นใจ</h4>
+                        <p>เราดูแลโซลูชันที่คุณลงทุนไปอย่างต่อเนื่อง พร้อมรับประกันคุณภาพบริการ (SLA)</p>
+                    </div>
+                    <div class="border-t-2 md:border-t-0 md:border-l-2 md:border-r-2 border-gray-700 px-8 pt-8 md:pt-0">
+                        <h4 class="text-xl font-bold text-white mb-2">โซลูชันเพื่อคุณโดยเฉพาะ</h4>
+                        <p>เราสร้างสรรค์โซลูชันที่ออกแบบมาเพื่อธุรกิจของคุณโดยเฉพาะ ไม่ใช่บริการสำเร็จรูป</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-2">ผสานสิ่งที่ดีที่สุด</h4>
+                        <p>นำความเชี่ยวชาญแบบ System Integrator มารวมกับบริการแบบ Trusted Service Provider</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / CTA Section -->
+        <section id="contact" class="py-20 px-6 text-center gradient-bg">
+            <div class="container mx-auto scroll-animation">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">เปลี่ยนความซับซ้อนให้เป็นการเติบโตที่ไร้กังวล</h2>
+                <p class="text-lg text-gray-300 mb-8">ติดต่อเราเพื่อขอรับการสาธิต (Demo) หรือปรึกษาผู้เชี่ยวชาญได้แล้ววันนี้</p>
+                <a href="mailto:info@uih.co.th" class="bg-white text-blue-700 font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">
+                    ติดต่อผู้เชี่ยวชาญ
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0D1117] border-t border-gray-800">
+        <div class="container mx-auto py-8 px-6 text-center text-gray-500">
+            <p>&copy; 2024 UIH Vanguard. All Rights Reserved.</p>
+            <p class="text-sm mt-2">www.uih.co.th | โทร: 02-XXX-XXXX</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for scroll animations
+        const scrollElements = document.querySelectorAll('.scroll-animation');
+
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('visible');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+
+        // Trigger animation for elements already in view on page load
+        handleScrollAnimation();
+    </script>
+</body>
+</html>
